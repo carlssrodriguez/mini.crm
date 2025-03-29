@@ -10,12 +10,18 @@ builder.Services.AddSwaggerGen();
 
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseInMemoryDatabase("ClientsDb"));
-
+builder.Services.AddCors();
 var app = builder.Build();
 
 // Middleware
 app.UseSwagger();
+
 app.UseSwaggerUI();
+
+app.UseCors(policy =>
+    policy.AllowAnyOrigin()
+          .AllowAnyMethod()
+          .AllowAnyHeader());
 
 app.UseAuthorization();
 
